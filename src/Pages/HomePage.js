@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GithubIcon from '@mui/icons-material/GitHub';
 import YoutubeIcon from '@mui/icons-material/YouTube';
-import InstagramIcon from '@mui/icons-material/Instagram';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import Particle from '../Components/Particle';
 import iconRS from '../img/icons8-researchgate.svg';

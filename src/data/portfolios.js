@@ -1,45 +1,18 @@
 import pizza from '../img/portImages/pizza.png';
 import chat from '../img/portImages/chat.png';
 import clothing from '../img/portImages/clothing.png';
-
-
 import movie from '../img/portImages/movie.png';
 import tinder from '../img/portImages/tinder.png';
 import zoom from '../img/portImages/zoom.png';
-
 import twitter from '../img/portImages/twitter.png';
-import slack from '../img/portImages/slack.png';
-import whatsapp from '../img/portImages/whatsapp.png';
-
-import spotify from '../img/portImages/spotify.png';
-import yt1 from '../img/portImages/mern-yt-2.PNG';
-import instagram from '../img/portImages/instagram.png';
-
-import tour from '../img/portImages/tour.png';
-import natural from '../img/portImages/natural-disaster.png';
-import hulu from '../img/portImages/hulu.PNG';
-
-import news from '../img/portImages/news.PNG';
-import nba from '../img/portImages/nba.PNG';
-import artist from '../img/portImages/martist.PNG';
-
 import prime from '../img/portImages/prime.PNG';
-import linkedin from '../img/portImages/linkedin.PNG';
-import trello from '../img/portImages/trello.PNG';
-
-import tiktok from '../img/portImages/tiktok.PNG';
-import covid from '../img/portImages/covid.PNG';
 import disney from '../img/portImages/disney.PNG';
-
 import youtube from '../img/portImages/yt.PNG';
 import facebook from '../img/portImages/facebook.PNG';
 import airbnb from '../img/portImages/airbnb.PNG';
-
 import netflix from '../img/portImages/netflix.PNG';
 import pizzaDev from '../img/portImages/pizzaDev.PNG';
 import amazon from '../img/portImages/amazon.PNG';
-import vbSearchBlog from '../img/portImages/vsSearchBlog.png';
-import gpac from '../img/portImages/gpac.png';
 
 
 const portfolios = [
