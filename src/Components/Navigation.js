@@ -21,10 +21,10 @@ function Navigation({theme}) {
                     <NavLink to="/resume" activeClassName="active-class" exact>Resume</NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink to="/portfolios" activeClassName="active-class" exact>Portfolio</NavLink>
+                    <NavLink to="/portfolios" activeClassName="active-class" exact>Projects</NavLink>
                 </li>
                 <li className="nav-item">
-                    <NavLink to="/blogs" activeClassName="active-class" exact>Blogs</NavLink>
+                    <NavLink to="/blogs" activeClassName="active-class" exact>Products</NavLink>
                 </li>
                 <li className="nav-item">
                     <NavLink to="/certification" activeClassName="active-class" exact>Certification</NavLink>
@@ -34,8 +34,7 @@ function Navigation({theme}) {
                 </li>
             </ul>
             <footer className="footer">
-                <p><b>&copy; 2024
-                     Arnav Bhargava</b></p>
+                <p><b>&copy; {new Date().getFullYear()} Arnav Bhargava</b></p>
             </footer>
         </NavigationStyled>
     )

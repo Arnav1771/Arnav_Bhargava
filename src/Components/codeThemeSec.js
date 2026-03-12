@@ -8,7 +8,7 @@ const CodeThemeSec = () => {
             'class PersonalLife {',
             '  constructor() {',
             '    this.hobbies = ["Reading", "Video Games","Badminton"];',
-            '    this.website = "https://www.Arnavbansal.in";',
+            '    this.github = "https://github.com/Arnav1771";',
             '  }',
             '  Address() {',
             '    return [',
@@ -27,20 +27,8 @@ const CodeThemeSec = () => {
           
           const codeContainer = document.getElementById('code-container2');
           let lineIndex = 0;
-          // function fadeOut() {
-          //   let opacity = 1;
-          //   const fadeInterval = setInterval(() => {
-          //     if (opacity > 0) {
-          //       opacity -= 0.05; // Adjust the opacity decrement rate
-          //       codeContainer.style.opacity = opacity;
-          //     } else {
-          //       clearInterval(fadeInterval);
-          //       codeContainer.style.display = 'none'; // Hide the code container
-          //     }
-          //   }, 1000); // Adjust the fade speed (in milliseconds)
-          // }
 
-            function typeLine() {
+          function typeLine() {
             const line = codeLines[lineIndex];
             const div = document.createElement('div');
             const formattedLine = line?.replace(/\s/g, '&nbsp;');
@@ -68,18 +56,19 @@ const CodeThemeSec = () => {
             lineIndex++;
 
             if (lineIndex < codeLines.length) {
-                setTimeout(() => typeLine(codeContainer), 1000); // Adjust the typing speed (in milliseconds)
-            } else {
-              // fadeOut()
+                setTimeout(() => typeLine(codeContainer), 1000);
             }
             }
 
           if (!tstRef.current) {  
+            tstRef.current = true;
             typeLine();
-            tstRef.current = true
           }
-         
-          
+
+          return () => {
+            tstRef.current = false;
+            if (codeContainer) codeContainer.innerHTML = '';
+          };
     },[])
   return (
     <div>

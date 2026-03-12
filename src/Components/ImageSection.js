@@ -1,14 +1,21 @@
 import React from 'react'
 import styled from 'styled-components';
-import resume from '../img/resume.jpg';
-import resumeLight from '../img/Arnavphoto.png';
+import formalPhoto from '../img/Arnav_formal.jpeg';
 import PrimaryButton from './PrimaryButton';
 
 function ImageSection({theme}) {
+    const age = (() => {
+        const birth = new Date('2003-10-01');
+        const today = new Date();
+        let a = today.getFullYear() - birth.getFullYear();
+        const m = today.getMonth() - birth.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) a--;
+        return a;
+    })();
     return (
         <ImageSectionStyled>
             <div className="left-content">
-                <img src={theme === 'light-theme' ? resumeLight : resume} alt="profile_photo"/>
+                <img src={formalPhoto} alt="profile_photo"/>
             </div>
             <div className="right-content">
                 <h4>I am <span>Arnav Bhargava</span></h4>
@@ -18,22 +25,12 @@ function ImageSection({theme}) {
                 </p>
                 
                 <div className="about-info">
-                    <div className="info-title">
-                        <p>Full Name</p>
-                        <p>Age</p>
-                        <p>Nationality </p>
-                        <p>Languages </p>
-                        <p>Location</p>
-                        <p>Profile</p>
-                    </div>
-                    <div className="info">
-                        <p>: Arnav Bhargava</p>
-                        <p>: 21</p>
-                        <p>: Indian </p>
-                        <p>: English, Hindi </p>
-                        <p>: New Delhi, India</p>
-                        <p>: Python/ML Devloper </p>
-                    </div>
+                    <div className="info-item"><span className="label">Full Name</span><span className="value">: Arnav Bhargava</span></div>
+                    <div className="info-item"><span className="label">Age</span><span className="value">: {age}</span></div>
+                    <div className="info-item"><span className="label">Nationality</span><span className="value">: Indian</span></div>
+                    <div className="info-item"><span className="label">Languages</span><span className="value">: English, Hindi, Japanese (Daily Conversation)</span></div>
+                    <div className="info-item"><span className="label">Location</span><span className="value">: India</span></div>
+                    <div className="info-item"><span className="label">Profile</span><span className="value">: Python/ML Developer, AI Developer, Game Tester, QA Engineer</span></div>
                 </div>
                 <PrimaryButton title={'Download CV'} />
             </div>
@@ -60,7 +57,10 @@ const ImageSectionStyled = styled.div`
         width: 100%;
         img{
             width: 95%;
+            height: 480px;
             object-fit: cover;
+            object-position: center;
+            border-radius: 8px;
         }
     }
     .right-content{
@@ -78,16 +78,19 @@ const ImageSectionStyled = styled.div`
         }
         .about-info{
             display: flex;
+            flex-direction: column;
             padding-bottom: 1.4rem;
-            .info-title{
-                padding-right: 3rem;
-                p{
+            .info-item{
+                display: flex;
+                align-items: baseline;
+                padding: .3rem 0;
+                .label{
                     font-weight: 600;
+                    min-width: 130px;
+                    flex-shrink: 0;
                 }
-            }
-            .info-title, .info{
-                p{
-                    padding: .3rem 0;
+                .value{
+                    color: var(--font-light-color);
                 }
             }
         }

@@ -8,7 +8,7 @@ function BlogsPage() {
     return (
         <MainLayout>
             <BlogsStyled>
-            <Title title={'Blogs'} span={'Blogs'} />
+            <Title title={'Products'} span={'Products'} />
                 <InnerLayout className={'blog'}>
                     {
                         blogs.map((blog)=>{

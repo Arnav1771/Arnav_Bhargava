@@ -202,10 +202,6 @@
 //     dots.forEach(dot => {
 //         dot.draw();
 //     });
-//     window.requestAnimationFrame(render);
-//     }
-//     render();
-// }
 
 export const initSkillSphere = (theme) => {
     const bgColor = theme === 'light-theme' ? '#F1F1F1' : '#10121A';

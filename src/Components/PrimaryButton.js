@@ -4,7 +4,7 @@ import styled from 'styled-components';
 function PrimaryButton({title}) {
     return (
         <PrimaryButtonStyled>
-            <a href="https://drive.google.com/file/d/1AegI0ro4tn-aFl1GoyrNXmMyErR8Wqqo/view" download="ArnavBansal_Resume.pdf">{title}</a>
+            <a href="https://drive.google.com/file/d/1P68XkqEy_qXY-wY39KwyuEl4yC7H7isQ/view?usp=sharing" download="ArnavBhargava_Resume.pdf">{title}</a>
         </PrimaryButtonStyled>
     )
 }

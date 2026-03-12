@@ -32,7 +32,7 @@ const CertificationPage = () => {
     return (
         <MainLayout>
             <div className="portfolio-page">
-                <Title title={'Portfolio'} span={'& Certifications'} />
+                <Title title={'Projects'} span={'& Certifications'} />
                 <InnerLayout>
                     <div className="portfolio-grid">
                         {portfolios.map((item) => (

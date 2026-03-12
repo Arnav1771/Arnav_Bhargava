@@ -28,9 +28,9 @@ function CertificationPage() {
     const handleSort = (certs) => {
         switch(sortBy) {
             case 'newest':
-                return [...certs].sort((a, b) => new Date(`${b.month} ${b.date}`) - new Date(`${a.month} ${a.date}`));
+                return [...certs].sort((a, b) => new Date(`${b.month} ${b.date}, ${b.year}`) - new Date(`${a.month} ${a.date}, ${a.year}`));
             case 'oldest':
-                return [...certs].sort((a, b) => new Date(`${a.month} ${a.date}`) - new Date(`${b.month} ${b.date}`));
+                return [...certs].sort((a, b) => new Date(`${a.month} ${a.date}, ${a.year}`) - new Date(`${b.month} ${b.date}, ${b.year}`));
             case 'a-z':
                 return [...certs].sort((a, b) => a.title.localeCompare(b.title));
             case 'z-a':

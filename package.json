@@ -1,6 +1,7 @@
 {
   "name": "new-portfolio-vb",
   "version": "0.1.0",
+  "homepage": "https://arnav1771.github.io/Arnav_Bhargava",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -26,7 +27,9 @@
     "eject": "react-scripts eject",
     "dev": "react-scripts start",
     "open-readme": "start README.md",
-    "open-index": "start public/index.html"
+    "open-index": "start public/index.html",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
