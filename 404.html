@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arnav Bhargava — AI/ML Engineer & Agentic Workflow Specialist</title>
+<meta name="description" content="Associate Consultant at Aligned Automation. AI/ML Engineer specializing in LLMs, agentic workflows, and Linux systems.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#03060f;--bg2:#060d1a;--bg3:#0a1628;
+  --green:#00ff88;--blue:#38bdf8;--purple:#a78bfa;--pink:#f472b6;
+  --text:#e2e8f0;--muted:#64748b;--dim:#94a3b8;
+  --border:rgba(255,255,255,0.07);--card:rgba(255,255,255,0.03);
+  --glow-g:0 0 24px rgba(0,255,136,0.35);
+  --glow-b:0 0 24px rgba(56,189,248,0.35);
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Space Grotesk',system-ui,sans-serif;
+  --nav-h:64px;--max:1120px;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+strong{font-weight:700;color:#fff}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:#1e3a5f;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--green)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;height:var(--nav-h);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;background:rgba(3,6,15,0.8);backdrop-filter:blur(20px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
+nav.scrolled{border-bottom-color:rgba(0,255,136,0.12);background:rgba(3,6,15,0.95)}
+.nav-logo{font-family:var(--mono);font-size:1.05rem;font-weight:700;color:var(--green);letter-spacing:-0.02em}
+.nav-logo span{color:var(--dim)}
+.nav-links{display:flex;gap:2.2rem;align-items:center}
+.nav-links a{font-size:.82rem;font-weight:500;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.nav-links a:hover{color:var(--green)}
+.nav-cta{padding:7px 18px;border:1px solid rgba(0,255,136,0.4);border-radius:6px;color:var(--green)!important;font-family:var(--mono)!important;font-size:.76rem!important;transition:all .2s!important}
+.nav-cta:hover{background:rgba(0,255,136,0.1)!important;box-shadow:var(--glow-g)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.ham span{display:block;width:22px;height:2px;background:var(--dim);border-radius:2px;transition:all .3s}
+
+/* ── HERO ── */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:calc(var(--nav-h) + 3rem) 2rem 5rem;overflow:hidden}
+#cv{position:absolute;inset:0;pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,255,136,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,136,0.025) 1px,transparent 1px);background-size:55px 55px;pointer-events:none}
+.hero-glow1{position:absolute;width:700px;height:700px;background:radial-gradient(circle,rgba(0,255,136,0.05) 0%,transparent 65%);top:50%;left:50%;transform:translate(-50%,-55%);pointer-events:none}
+.hero-glow2{position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(56,189,248,0.04) 0%,transparent 65%);bottom:10%;right:5%;pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:800px;text-align:center}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:10px;background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.18);border-radius:100px;padding:6px 18px;margin-bottom:2rem;font-family:var(--mono);font-size:.78rem;color:var(--green)}
+.eyebrow-dot{width:7px;height:7px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+.hero-name{font-size:clamp(3rem,7vw,6rem);font-weight:700;line-height:1.02;letter-spacing:-.04em;color:#fff;margin-bottom:.6rem}
+.hero-name .gr{background:linear-gradient(135deg,var(--green) 0%,var(--blue) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero-sub{font-family:var(--mono);font-size:clamp(.95rem,2.5vw,1.25rem);color:var(--muted);margin-bottom:1.8rem;min-height:2em}
+.tw-cursor{display:inline-block;width:2px;height:1em;background:var(--green);margin-left:2px;vertical-align:text-bottom;animation:blink 1s step-start infinite}
+.hero-bio{font-size:1rem;color:var(--dim);max-width:560px;margin:0 auto 2.4rem;line-height:1.75}
+.hero-btns{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin-bottom:2.2rem}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:11px 26px;border-radius:8px;font-size:.88rem;font-weight:600;transition:all .22s;cursor:pointer;border:1px solid transparent}
+.btn-primary{background:var(--green);color:#000}
+.btn-primary:hover{box-shadow:var(--glow-g);transform:translateY(-2px)}
+.btn-outline{background:transparent;border-color:var(--border);color:var(--dim)}
+.btn-outline:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-2px)}
+.socials{display:flex;justify-content:center;flex-wrap:wrap;gap:.8rem}
+.soc{width:42px;height:42px;border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.78rem;font-family:var(--mono);transition:all .2s}
+.soc:hover{border-color:var(--green);color:var(--green);box-shadow:var(--glow-g);transform:translateY(-2px)}
+.scroll-hint{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--muted);font-size:.65rem;font-family:var(--mono);text-transform:uppercase;letter-spacing:.12em;animation:floatY 2.5s ease-in-out infinite}
+.scroll-hint svg{opacity:.5}
+
+/* ── STATS ── */
+.stats-bar{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:1.4rem 2rem}
+.stats-inner{max-width:var(--max);margin:0 auto;display:flex;justify-content:space-around;flex-wrap:wrap;gap:1rem}
+.stat{text-align:center}
+.stat-n{font-family:var(--mono);font-size:1.9rem;font-weight:700;color:var(--green);line-height:1}
+.stat-l{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.09em;margin-top:5px}
+
+/* ── SECTIONS ── */
+section{padding:5rem 2rem}
+.container{max-width:var(--max);margin:0 auto}
+.sec-pre{font-family:var(--mono);font-size:.78rem;color:var(--green);margin-bottom:.4rem;display:flex;align-items:center;gap:.4rem}
+.sec-pre::before{content:'$';color:var(--muted)}
+.sec-h{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:700;color:#fff;letter-spacing:-.03em;line-height:1.1;margin-bottom:3rem}
+.sec-h span{color:var(--green)}
+
+/* ── TERMINAL WINDOW ── */
+.tw{background:#050d1a;border:1px solid rgba(0,255,136,0.13);border-radius:12px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.6),0 0 0 1px rgba(0,255,136,0.04)}
+.tw-bar{background:#08111f;border-bottom:1px solid rgba(0,255,136,0.09);padding:10px 16px;display:flex;align-items:center;gap:8px}
+.dot{width:12px;height:12px;border-radius:50%}
+.dr{background:#ff5f57}.dy{background:#ffbd2e}.dg{background:#28ca41}
+.tw-title{font-family:var(--mono);font-size:.78rem;margin-left:10px;color:var(--muted)}
+.tw-title .u{color:#28ca41}.tw-title .h{color:var(--blue)}.tw-title .p{color:#ffbd2e}.tw-title .c{color:var(--text)}
+
+/* ── SKILLS ── */
+#skills{background:var(--bg)}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr}
+.sq{padding:1.8rem 2rem;border-right:1px solid rgba(0,255,136,0.07);border-bottom:1px solid rgba(0,255,136,0.07)}
+.sq:nth-child(even){border-right:none}
+.sq:nth-last-child(-n+2){border-bottom:none}
+.sq-title{display:flex;align-items:center;gap:.5rem;font-size:.98rem;font-weight:700;color:#fff;margin-bottom:1rem}
+.badges{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:.9rem}
+.badge{display:inline-block;padding:3px 11px;border-radius:6px;font-size:.7rem;font-weight:700;font-family:var(--mono);border:1px solid;transition:transform .15s}
+.badge:hover{transform:translateY(-2px)}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:.7rem;color:var(--muted);font-family:var(--mono)}
+.tag:not(:last-child)::after{content:'·';margin-left:5px;color:#1e3a5f}
+
+/* ── PROJECTS ── */
+#projects{background:var(--bg2)}
+.fbar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2rem}
+.fbtn{padding:5px 15px;background:transparent;border:1px solid var(--border);border-radius:100px;color:var(--muted);font-size:.73rem;font-family:var(--sans);cursor:pointer;transition:all .2s}
+.fbtn:hover,.fbtn.active{background:rgba(0,255,136,0.08);border-color:var(--green);color:var(--green)}
+.pt-wrap{overflow-x:auto}
+.pt{width:100%;border-collapse:collapse;font-size:.87rem}
+.pt thead tr{border-bottom:1px solid rgba(0,255,136,0.12)}
+.pt th{padding:.75rem 1.2rem;text-align:left;font-size:.65rem;text-transform:uppercase;letter-spacing:.13em;color:var(--muted);font-family:var(--mono);font-weight:600}
+.pt tbody tr{border-bottom:1px solid rgba(255,255,255,0.04);transition:background .18s}
+.pt tbody tr:last-child{border-bottom:none}
+.pt tbody tr:hover{background:rgba(0,255,136,0.025)}
+.pt td{padding:1rem 1.2rem;vertical-align:middle}
+.pname{display:flex;align-items:flex-start;gap:10px;min-width:180px}
+.picon{font-size:1.3rem;line-height:1;flex-shrink:0;margin-top:2px}
+.ptitle{color:#fff;font-weight:700;font-size:.88rem;transition:color .2s;display:block}
+.ptitle:hover{color:var(--green)}
+.pcat{display:inline-block;font-size:.6rem;padding:2px 8px;border-radius:100px;background:rgba(56,189,248,0.1);border:1px solid rgba(56,189,248,0.22);color:var(--blue);font-family:var(--mono);margin-top:3px}
+.pstack{min-width:200px}
+.ttag{display:inline-block;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:.67rem;color:var(--muted);font-family:var(--mono);margin:2px 2px 2px 0;white-space:nowrap}
+.phi{color:var(--muted);font-size:.82rem;max-width:320px;line-height:1.55}
+
+/* ── EXPERIENCE ── */
+#experience{background:var(--bg)}
+.tl{position:relative;padding-left:1.8rem}
+.tl::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--green),var(--blue),var(--purple),transparent)}
+.tli{position:relative;padding:0 0 2.8rem 2rem}
+.tli::before{content:'';position:absolute;left:-5px;top:8px;width:11px;height:11px;border-radius:50%;background:var(--green);box-shadow:0 0 14px rgba(0,255,136,0.6)}
+.tli.edu::before{background:var(--blue);box-shadow:0 0 14px rgba(56,189,248,0.6)}
+.tli.cert-type::before{background:var(--purple);box-shadow:0 0 14px rgba(167,139,250,0.6)}
+.tl-yr{font-family:var(--mono);font-size:.72rem;color:var(--green);margin-bottom:.3rem}
+.tli.edu .tl-yr{color:var(--blue)}
+.tl-role{font-size:1.02rem;font-weight:700;color:#fff;margin-bottom:.2rem}
+.tl-org{font-size:.82rem;color:var(--muted);margin-bottom:.55rem}
+.tl-desc{font-size:.85rem;color:var(--muted);line-height:1.65}
+.certs{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.9rem;margin-top:1rem}
+.cc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1rem 1.2rem;display:flex;flex-direction:column;gap:4px;transition:all .2s}
+.cc:hover{border-color:var(--purple);background:rgba(167,139,250,0.05);transform:translateY(-2px)}
+.cc-name{color:#fff;font-size:.84rem;font-weight:600}
+.cc-org{color:var(--purple);font-size:.7rem;font-family:var(--mono)}
+
+/* ── CONTACT ── */
+#contact{background:var(--bg2);text-align:center}
+.contact-wrap{max-width:600px;margin:0 auto}
+.contact-email{font-family:var(--mono);font-size:clamp(1rem,3vw,1.6rem);color:var(--green);display:inline-block;border-bottom:2px solid rgba(0,255,136,0.25);padding-bottom:4px;margin:1.5rem 0 2rem;transition:border-color .2s}
+.contact-email:hover{border-color:var(--green)}
+.clinks{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem}
+.clink{display:flex;align-items:center;gap:8px;padding:10px 20px;border:1px solid var(--border);border-radius:8px;font-size:.86rem;color:var(--muted);transition:all .2s}
+.clink:hover{border-color:var(--green);color:var(--green)}
+
+/* ── FOOTER ── */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:1.4rem 2rem;text-align:center;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+footer span{color:var(--green)}
+
+/* ── ANIMATIONS ── */
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(0,255,136,.45)}50%{box-shadow:0 0 0 7px rgba(0,255,136,0)}}
+@keyframes floatY{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.fu{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s ease}
+.fu.vis{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .nav-links{display:none}.ham{display:flex}
+  .nav-links.open{display:flex;flex-direction:column;position:fixed;top:var(--nav-h);left:0;right:0;background:rgba(3,6,15,.97);border-bottom:1px solid var(--border);padding:1.5rem 2rem;gap:1.3rem;z-index:199}
+  .skills-grid{grid-template-columns:1fr}
+  .sq{border-right:none!important}.sq:nth-last-child(-n+2){border-bottom:1px solid rgba(0,255,136,0.07)!important}.sq:last-child{border-bottom:none!important}
+  .phi{display:none}
+  section{padding:3.5rem 1.2rem}
+  .stats-inner{gap:1.5rem 2.5rem}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nb">
+  <div class="nav-logo">arnav<span>.bhargava</span></div>
+  <ul class="nav-links" id="nl">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="https://github.com/Arnav1771" class="nav-cta" target="_blank">GitHub ↗</a></li>
+  </ul>
+  <div class="ham" onclick="toggleNav()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="cv"></canvas>
+  <div class="hero-grid"></div>
+  <div class="hero-glow1"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow"><span class="eyebrow-dot"></span>Open to Consulting &amp; Research Collaborations</div>
+    <h1 class="hero-name">Arnav <span class="gr">Bhargava</span></h1>
+    <div class="hero-sub"><span id="tw"></span><span class="tw-cursor"></span></div>
+    <p class="hero-bio">Building production-grade AI systems — <strong>LLM pipelines</strong>, <strong>multi-agent workflows</strong> &amp; end-to-end automation. Associate Consultant at <strong>Aligned Automation</strong>. Arch Linux daily driver &amp; Research Student at Hiroshima University.</p>
+    <div class="hero-btns">
+      <a href="https://github.com/Arnav1771" class="btn btn-primary" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        View GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/arnav-bhargava-845457280/" class="btn btn-outline" target="_blank">LinkedIn ↗</a>
+      <a href="mailto:arnav.bhargava@alignedautomation.com" class="btn btn-outline">Email Me</a>
+    </div>
+    <div class="socials">
+      <a class="soc" href="https://www.kaggle.com/arnavbhargava03" target="_blank" title="Kaggle">KGL</a>
+      <a class="soc" href="https://leetcode.com/u/Arnav1771/" target="_blank" title="LeetCode">LC</a>
+      <a class="soc" href="https://www.hackerrank.com/profile/arnav_bhargava3" target="_blank" title="HackerRank">HR</a>
+      <a class="soc" href="https://www.youtube.com/@arnavplays4468" target="_blank" title="YouTube">YT</a>
+      <a class="soc" href="https://ijsret.com/wp-content/uploads/2023/03/IJSRET_V9_issuue2_132.pdf" target="_blank" title="Research Paper">📄</a>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <span>scroll</span>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-n">3+</div><div class="stat-l">Years Experience</div></div>
+    <div class="stat"><div class="stat-n">50+</div><div class="stat-l">Projects Built</div></div>
+    <div class="stat"><div class="stat-n">3×</div><div class="stat-l">Harvard CS50 Certified</div></div>
+    <div class="stat"><div class="stat-n">1×</div><div class="stat-l">Published Researcher</div></div>
+    <div class="stat"><div class="stat-n">🐧</div><div class="stat-l">Arch Linux</div></div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="fu">
+      <div class="sec-pre">cat skills.json</div>
+      <h2 class="sec-h">Tech <span>Stack</span></h2>
+    </div>
+    <div class="tw fu">
+      <div class="tw-bar">
+        <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+        <div class="tw-title"><span class="u">arnav</span><span>@</span><span class="h">arch</span><span>:</span><span class="p">~</span><span class="c"> $ cat skills.json</span></div>
+      </div>
+      <div class="skills-grid" id="sg"></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="fu">
+      <div class="sec-pre">ls -la projects/ | sort</div>
+      <h2 class="sec-h">Featured <span>Projects</span></h2>
+    </div>
+    <div class="fbar fu" id="fb"></div>
+    <div class="tw fu">
+      <div class="tw-bar">
+        <div class="dot dr"></div><div class="dot dy"></div><div class="dot dg"></div>
+        <div class="tw-title"><span class="u">arnav</span><span>@</span><span class="h">arch</span><span>:</span><span class="p">~/projects</span><span class="c"> $ ls -la</span></div>
+      </div>
+      <div class="pt-wrap">
+        <table class="pt">
+          <thead><tr><th>Project</th><th>Stack</th><th>Highlight</th></tr></thead>
+          <tbody id="pb"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div class="fu">
+      <div class="sec-pre">cat career.log</div>
+      <h2 class="sec-h">Experience &amp; <span>Education</span></h2>
+    </div>
+    <div class="tl fu">
+      <div class="tli">
+        <div class="tl-yr">06/2025 – Present</div>
+        <div class="tl-role">Associate Consultant</div>
+        <div class="tl-org">Aligned Automation</div>
+        <div class="tl-desc">Designing and deploying production-grade agentic AI workflows for enterprise clients. Building LLM-powered automation pipelines using n8n, LangChain, and custom Python toolchains. Responsible for end-to-end architecture of intelligent process automation solutions.</div>
+      </div>
+      <div class="tli edu">
+        <div class="tl-yr">10/2025 – 03/2026</div>
+        <div class="tl-role">Research Student — Informatics &amp; Data Science</div>
+        <div class="tl-org">Hiroshima University, Japan</div>
+        <div class="tl-desc">Conducting research in AI/ML applied to complex data systems. Collaborated on multi-modal deep learning and data science methodologies in a Japanese-language research environment.</div>
+      </div>
+      <div class="tli">
+        <div class="tl-yr">09/2023 – 01/2024</div>
+        <div class="tl-role">Quality Engineer Intern</div>
+        <div class="tl-org">Naviwise</div>
+        <div class="tl-desc">Automated testing with Python &amp; Selenium. Improved test coverage by 40% and resolved critical regression bugs across multiple product releases.</div>
+      </div>
+      <div class="tli edu">
+        <div class="tl-yr">2021 – 2025</div>
+        <div class="tl-role">B.Tech — Computer Science, AI &amp; ML Specialization</div>
+        <div class="tl-org">VIT Bhopal University · CGPA 7.91</div>
+        <div class="tl-desc">Published research on CNN-based image classification (IJSRET · Springer). Led hackathon teams. Completed CS50x, CS50 AI, and CS50 R certifications from Harvard University.</div>
+      </div>
+    </div>
+    <div style="margin-top:3rem" class="fu">
+      <div class="sec-pre" style="margin-bottom:1.2rem">ls certifications/</div>
+      <div class="certs">
+        <a href="https://cs50.harvard.edu/certificates/b335b1f7-89a6-41c5-88aa-e41429c0ff8c" class="cc" target="_blank"><div class="cc-name">CS50 AI with Python</div><div class="cc-org">Harvard University</div></a>
+        <a href="https://cs50.harvard.edu/certificates/1657453c-63ae-4895-a1f2-31b6c19387d8" class="cc" target="_blank"><div class="cc-name">CS50x — Introduction to CS</div><div class="cc-org">Harvard University</div></a>
+        <a href="https://cs50.harvard.edu/certificates/56b1e036-36c0-4e81-b457-d3de8591fb5d" class="cc" target="_blank"><div class="cc-name">CS50 R Programming</div><div class="cc-org">Harvard University</div></a>
+        <a href="https://ijsret.com/wp-content/uploads/2023/03/IJSRET_V9_issuue2_132.pdf" class="cc" target="_blank"><div class="cc-name">Published Research — CNN Image Classification</div><div class="cc-org">IJSRET · Springer Natural Sciences</div></a>
+        <a href="https://github.com/Arnav1771/Cognizant_Ai_Virtual_Internship" class="cc" target="_blank"><div class="cc-name">AI Virtual Internship</div><div class="cc-org">Forage / Cognizant</div></a>
+        <a href="https://github.com/Arnav1771/British_Airways_Virtual_Internship" class="cc" target="_blank"><div class="cc-name">Data Science Internship</div><div class="cc-org">Forage / British Airways</div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="contact-wrap">
+      <div class="fu"><div class="sec-pre">echo "let's build something epic"</div><h2 class="sec-h">Get In <span>Touch</span></h2></div>
+      <p class="fu" style="color:var(--muted);font-size:.95rem;margin-bottom:.5rem">Open to consulting, research collaborations, and interesting AI/ML projects.</p>
+      <a href="mailto:arnav.bhargava@alignedautomation.com" class="contact-email fu">arnav.bhargava@alignedautomation.com</a>
+      <div class="clinks fu">
+        <a href="https://github.com/Arnav1771" class="clink" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/arnav-bhargava-845457280/" class="clink" target="_blank">LinkedIn</a>
+        <a href="https://www.kaggle.com/arnavbhargava03" class="clink" target="_blank">Kaggle</a>
+        <a href="https://leetcode.com/u/Arnav1771/" class="clink" target="_blank">LeetCode</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer><span>© 2026 Arnav Bhargava</span> &nbsp;·&nbsp; Associate Consultant @ Aligned Automation &nbsp;·&nbsp; Built with obsession</footer>
+
+<script>
+const SKILLS=[
+  {icon:'⚡',title:'ML / AI / LLM',badges:[
+    {l:'PyTorch',c:'#ee4b2b',b:'rgba(238,75,43,.15)'},{l:'TensorFlow',c:'#ff6f00',b:'rgba(255,111,0,.15)'},
+    {l:'HuggingFace',c:'#ffd21e',b:'rgba(255,210,30,.12)'},{l:'GPT-4o',c:'#10a37f',b:'rgba(16,163,127,.15)'},
+    {l:'Gemini 2.0',c:'#4285f4',b:'rgba(66,133,244,.15)'},{l:'Ollama',c:'#94a3b8',b:'rgba(148,163,184,.1)'},
+  ],tags:['RAG','LLM Fine-tuning','Multi-Modal AI','Prompt Engineering','Stable Diffusion']},
+  {icon:'🌐',title:'Backend & Web',badges:[
+    {l:'Python',c:'#3776ab',b:'rgba(55,118,171,.15)'},{l:'TypeScript',c:'#3178c6',b:'rgba(49,120,198,.15)'},
+    {l:'FastAPI',c:'#009688',b:'rgba(0,150,136,.15)'},{l:'Flask',c:'#94a3b8',b:'rgba(148,163,184,.08)'},
+    {l:'Next.js 14',c:'#fff',b:'rgba(255,255,255,.06)'},{l:'n8n',c:'#ea4b71',b:'rgba(234,75,113,.15)'},
+  ],tags:['JavaScript','SQL','R','REST APIs','WebSockets']},
+  {icon:'💾',title:'Databases & Cloud',badges:[
+    {l:'PostgreSQL',c:'#4169e1',b:'rgba(65,105,225,.15)'},{l:'MySQL',c:'#f29111',b:'rgba(242,145,17,.15)'},
+    {l:'GCP',c:'#4285f4',b:'rgba(66,133,244,.15)'},{l:'Vercel',c:'#fff',b:'rgba(255,255,255,.06)'},
+    {l:'MongoDB',c:'#47a248',b:'rgba(71,162,72,.15)'},{l:'Prisma',c:'#7c83fd',b:'rgba(124,131,253,.15)'},
+  ],tags:['Vector DBs','Redis','Firebase','Supabase']},
+  {icon:'🔧',title:'DevOps & Linux',badges:[
+    {l:'Docker',c:'#2496ed',b:'rgba(36,150,237,.15)'},{l:'Git',c:'#f05032',b:'rgba(240,80,50,.15)'},
+    {l:'Arch Linux',c:'#1793d1',b:'rgba(23,147,209,.15)'},{l:'Shell/Bash',c:'#00ff88',b:'rgba(0,255,136,.1)'},
+    {l:'Jenkins',c:'#d33833',b:'rgba(211,56,51,.15)'},{l:'Hyprland',c:'#58a6ff',b:'rgba(88,166,255,.15)'},
+  ],tags:['Neovim','i3wm','Dotfiles','CI/CD','LangChain','AutoGen','crewAI']},
+];
+
+const PROJECTS=[
+  {icon:'🤖',name:'localhost-ai-hub',cat:'Agentic AI',stack:['TypeScript','Docker','Ollama','n8n','LangChain'],hl:'12+ open-source AI tools running entirely on localhost — full agentic orchestration stack',url:'https://github.com/Arnav1771/localhost-ai-hub'},
+  {icon:'🚀',name:'AutocareerAI — n8n Cloud Deploy',cat:'Agentic AI',stack:['n8n','Jenkins','Python','LaTeX AI'],hl:'Scrapes LinkedIn/Naukri, AI-generates resumes & auto-applies. Full CI/CD pipeline.',url:'https://github.com/Arnav1771/AutocareerAI-N8n-Deployment-on-cloud'},
+  {icon:'⚡',name:'fahh-ide',cat:'DevTools',stack:['TypeScript','Monaco','LSP','Electron'],hl:'Ultra-fast lightweight IDE — sub-100ms startup, full LSP support, built from scratch',url:'https://github.com/Arnav1771/fahh-ide'},
+  {icon:'🔌',name:'codeflow-extension',cat:'DevTools',stack:['TypeScript','VS Code API','GPT-4'],hl:'AI code gen, test gen, doc gen, security scan & commit messages — all in one plugin',url:'https://github.com/Arnav1771/codeflow-extension'},
+  {icon:'🐧',name:'Arch_Rice',cat:'Linux',stack:['Shell','Hyprland','Neovim','Dotfiles'],hl:'Complete Arch Linux rice — WM, bar, terminal, Neovim. Fully automated bootstrap.',url:'https://github.com/Arnav1771/Arch_Rice'},
+  {icon:'🗺️',name:'cate — Spatial IDE Canvas',cat:'DevTools',stack:['TypeScript','Canvas API','Monaco'],hl:'Infinite zoomable spatial workspace — editor, terminal & browser panels on one canvas',url:'https://github.com/Arnav1771/cate_Ab'},
+  {icon:'🔍',name:'stacktrace-ai',cat:'AI / LLM',stack:['Python','FastAPI','LLM','React'],hl:'Drop in any stack trace → AI gives root cause + fix. Live on Vercel.',url:'https://github.com/Arnav1771/stacktrace-ai'},
+  {icon:'🎬',name:'motion-locked-subtitles',cat:'Computer Vision',stack:['Python','OpenCV','Whisper','YOLO'],hl:'Transcribes audio & pins subtitles to moving objects in real-time video',url:'https://github.com/Arnav1771/motion-locked-subtitle-generator'},
+  {icon:'🦀',name:'swift-record',cat:'Systems',stack:['Rust','FFmpeg','WebRTC'],hl:'One-click desktop screen recorder with instant sharing and AI processing pipeline',url:'https://github.com/Arnav1771/swift-record'},
+  {icon:'🎭',name:'GuiltHub',cat:'Web / SaaS',stack:['Next.js 14','TypeScript','Prisma','PostgreSQL'],hl:'AI vibe-code project showcase — featured on Product Hunt at launch',url:'https://github.com/Arnav1771/GuiltHub'},
+  {icon:'📧',name:'emailguard',cat:'Web / SaaS',stack:['TypeScript','Next.js','PostgreSQL'],hl:'Email validation, deliverability monitoring & list hygiene SaaS platform',url:'https://github.com/Arnav1771/emailguard'},
+  {icon:'👁️',name:'Therapist & Child Tracking',cat:'Computer Vision',stack:['Python','YOLOv8','DeepSORT','Docker'],hl:'Multi-object tracking with unique IDs across long-duration therapy session videos',url:'https://github.com/Arnav1771/Therapist-and-Child-Detection-and-Tracking'},
+  {icon:'🎮',name:'RL_Bot_Training',cat:'ML / RL',stack:['Python','RLBot','PPO','OpenAI Gym'],hl:'Trained RL agent to play Rocket League using proximal policy optimization',url:'https://github.com/Arnav1771/RL_Bot_Training'},
+  {icon:'🎯',name:'multi-platform-launcher',cat:'Systems',stack:['Python','Steam API','Epic','GOG'],hl:'Unified game library manager for Steam, Epic, GOG, Xbox Game Pass & Ubisoft+',url:'https://github.com/Arnav1771/multi-platform-game-launcher'},
+];
+
+const ROLES=['Associate Consultant @ Aligned Automation','AI / LLM Engineer','Agentic Workflow Builder','Linux Poweruser 🐧','Research Student — Hiroshima Univ.','Arnav Bhargava'];
+
+// Render skills
+(()=>{
+  const g=document.getElementById('sg');
+  SKILLS.forEach(s=>{
+    const d=document.createElement('div');
+    d.className='sq';
+    d.innerHTML=`<div class="sq-title"><span>${s.icon}</span>${s.title}</div>
+    <div class="badges">${s.badges.map(b=>`<span class="badge" style="color:${b.c};background:${b.b};border-color:${b.c}44">${b.l}</span>`).join('')}</div>
+    <div class="tags">${s.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`;
+    g.appendChild(d);
+  });
+})();
+
+// Render projects
+(()=>{
+  const cats=['All',...new Set(PROJECTS.map(p=>p.cat))];
+  const fb=document.getElementById('fb'),pb=document.getElementById('pb');
+  let active='All';
+  cats.forEach(cat=>{
+    const b=document.createElement('button');
+    b.className='fbtn'+(cat==='All'?' active':'');
+    b.textContent=cat;
+    b.onclick=()=>{active=cat;fb.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');render();};
+    fb.appendChild(b);
+  });
+  function render(){
+    const list=active==='All'?PROJECTS:PROJECTS.filter(p=>p.cat===active);
+    pb.innerHTML=list.map(p=>`<tr>
+      <td><div class="pname"><span class="picon">${p.icon}</span><div><a class="ptitle" href="${p.url}" target="_blank" rel="noopener">${p.name}</a><span class="pcat">${p.cat}</span></div></div></td>
+      <td class="pstack">${p.stack.map(t=>`<span class="ttag">${t}</span>`).join('')}</td>
+      <td class="phi">${p.hl}</td>
+    </tr>`).join('');
+  }
+  render();
+})();
+
+// Typewriter
+(()=>{
+  const el=document.getElementById('tw');
+  let ri=0,ci=0,del=false;
+  function tick(){
+    const r=ROLES[ri];
+    if(del){el.textContent=r.slice(0,ci--);if(ci<0){del=false;ri=(ri+1)%ROLES.length;ci=0;setTimeout(tick,500);return;}}
+    else{el.textContent=r.slice(0,ci++);if(ci>r.length){del=true;setTimeout(tick,2200);return;}}
+    setTimeout(tick,del?35:75);
+  }
+  tick();
+})();
+
+// Canvas particles
+(()=>{
+  const c=document.getElementById('cv'),x=c.getContext('2d');
+  let W,H,pts=[];
+  function sz(){W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;}
+  function mk(){return{x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.35,vy:(Math.random()-.5)*.35,r:Math.random()*1.8+.8};}
+  function init(){sz();pts=Array.from({length:90},mk);}
+  function draw(){
+    x.clearRect(0,0,W,H);
+    for(let i=0;i<pts.length;i++){
+      for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+        if(d<130){x.strokeStyle=`rgba(0,255,136,${.1*(1-d/130)})`;x.lineWidth=.6;x.beginPath();x.moveTo(pts[i].x,pts[i].y);x.lineTo(pts[j].x,pts[j].y);x.stroke();}
+      }
+      x.fillStyle='rgba(0,255,136,.55)';x.beginPath();x.arc(pts[i].x,pts[i].y,pts[i].r,0,Math.PI*2);x.fill();
+      pts[i].x+=pts[i].vx;pts[i].y+=pts[i].vy;
+      if(pts[i].x<0||pts[i].x>W)pts[i].vx*=-1;
+      if(pts[i].y<0||pts[i].y>H)pts[i].vy*=-1;
+    }
+    requestAnimationFrame(draw);
+  }
+  init();draw();
+  window.addEventListener('resize',sz);
+})();
+
+// Nav scroll
+window.addEventListener('scroll',()=>document.getElementById('nb').classList.toggle('scrolled',scrollY>30));
+
+// Fade-up observer
+const ob=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ob.unobserve(e.target);}}),{threshold:.1});
+document.querySelectorAll('.fu').forEach(el=>ob.observe(el));
+
+// Mobile nav
+function toggleNav(){document.getElementById('nl').classList.toggle('open');}
+document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',()=>document.getElementById('nl').classList.remove('open')));
+</script>
+</body>
+</html>
