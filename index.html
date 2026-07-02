@@ -612,6 +612,7 @@ document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',
       if(user.public_repos)document.getElementById('s-repos').textContent=user.public_repos+'+';
       if(user.followers!==undefined)document.getElementById('s-followers').textContent=user.followers;
       if(!Array.isArray(repos))return;
+      window._ghRepos=repos; /* shared with interactive terminal's `current` command */
       document.getElementById('s-stars').textContent='★ '+repos.reduce((s,r)=>s+(r.stargazers_count||0),0);
 
       const byName={};repos.forEach(r=>byName[r.name.toLowerCase()]=r);
@@ -679,19 +680,23 @@ document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',
 <span style="color:#1793d1"> .                               \`/   </span>`;
 
   const CMDS={
-    help:()=>`<span class="hl">Available commands:</span>
-  <span class="hl">whoami</span>          — about me
-  <span class="hl">ls</span>              — list directories
-  <span class="hl">ls projects/</span>    — show all projects
-  <span class="hl">cat skills.json</span> — tech stack
-  <span class="hl">cat about.txt</span>   — detailed bio
-  <span class="hl">cat contact.txt</span> — contact info
-  <span class="hl">neofetch</span>        — system info (try it!)
-  <span class="hl">github</span>          — open GitHub profile
-  <span class="hl">uname -a</span>        — system kernel
-  <span class="hl">date</span>            — current date
-  <span class="hl">clear</span>           — clear terminal
-  <span class="hl">history</span>         — command history`,
+    help:()=>`<span class="hl">All commands:</span>
+  <span class="hl">whoami</span>            — about me
+  <span class="hl">current</span>           — what I'm building right now (live from GitHub)
+  <span class="hl">ls</span>                — list directories
+  <span class="hl">ls projects/</span>      — show all projects
+  <span class="hl">cat skills.json</span>   — tech stack
+  <span class="hl">cat about.txt</span>     — detailed bio
+  <span class="hl">cat contact.txt</span>   — contact info
+  <span class="hl">neofetch</span>          — system info (try it!)
+  <span class="hl">github</span>            — open GitHub profile
+  <span class="hl">uname -a</span>          — system kernel
+  <span class="hl">pwd</span>               — working directory
+  <span class="hl">date</span>              — current date
+  <span class="hl">history</span>           — command history
+  <span class="hl">clear</span>             — clear terminal
+  <span class="hl">exit</span>              — try it 😏
+  <span style="color:#374151">tip: Tab = autocomplete · ↑/↓ = history · there are hidden commands…</span>`,
 
     whoami:()=>`<span class="hl">Arnav Bhargava</span> — AI/ML Engineer & Associate Consultant
 
@@ -735,6 +740,22 @@ LinkedIn: <span class="bl">https://linkedin.com/in/arnav-bhargava-845457280</spa
 Kaggle:   <span class="bl">https://kaggle.com/arnavbhargava03</span>
 LeetCode: <span class="bl">https://leetcode.com/u/Arnav1771</span>`,
 
+    current:()=>{
+      const head=`<span class="hl">Currently building:</span>\n  <span class="bl">@ Aligned Automation</span> — agentic AI workflows for enterprise clients (private)\n`;
+      const repos=window._ghRepos;
+      if(Array.isArray(repos)){
+        const recent=repos.filter(r=>!r.fork&&r.description).slice(0,5)
+          .map(r=>{
+            const d=new Date(r.pushed_at);
+            const days=Math.floor((Date.now()-d)/(24*3600*1000));
+            const when=days===0?'today':days===1?'yesterday':days+' days ago';
+            return `  <span class="hl">${r.name}</span> <span style="color:#374151">·</span> <span class="bl">pushed ${when}</span>\n    ${(r.description||'').replace(/https?:\/\/[^\s|]+/,'').replace(/\|?\s*🚀\s*Live:?\s*/i,'').trim().slice(0,90)}`;
+          }).join('\n');
+        return head+`\n<span class="hl">Latest pushes on GitHub (live):</span>\n`+recent;
+      }
+      return head+`\n<span class="err">GitHub API not loaded yet</span> — scroll up so stats load, or try again in a second.`;
+    },
+    'current projects':()=>CMDS['current'](),
     neofetch:()=>NEOFETCH,
     'uname -a':()=>'Linux arch 6.12.3-arch1-1 #1 SMP PREEMPT_DYNAMIC x86_64 GNU/Linux',
     date:()=>new Date().toString(),
