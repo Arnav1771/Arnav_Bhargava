@@ -166,6 +166,13 @@ section{padding:5rem 2rem}
 .pstack{min-width:200px}
 .ttag{display:inline-block;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:4px;padding:2px 8px;font-size:.67rem;color:var(--muted);font-family:var(--mono);margin:2px 2px 2px 0;white-space:nowrap}
 .phi{color:var(--muted);font-size:.82rem;max-width:320px;line-height:1.55}
+.plive{display:inline-flex;align-items:center;gap:4px;font-size:.62rem;padding:2px 9px;border-radius:100px;background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.35);color:var(--green);font-family:var(--mono);margin:3px 0 0 6px;transition:all .2s;vertical-align:middle}
+.plive:hover{background:rgba(0,255,136,0.2);box-shadow:0 0 12px rgba(0,255,136,0.3)}
+.plive::before{content:'';width:5px;height:5px;background:var(--green);border-radius:50%;animation:pulse 2s infinite}
+.pnew{display:inline-block;font-size:.58rem;padding:2px 8px;border-radius:100px;background:rgba(244,114,182,0.12);border:1px solid rgba(244,114,182,0.4);color:var(--pink);font-family:var(--mono);font-weight:700;margin-left:6px;vertical-align:middle;animation:pulse-pink 2s infinite}
+@keyframes pulse-pink{0%,100%{box-shadow:0 0 0 0 rgba(244,114,182,.4)}50%{box-shadow:0 0 0 6px rgba(244,114,182,0)}}
+.sync-note{font-family:var(--mono);font-size:.68rem;color:var(--muted);margin-top:1rem;display:flex;align-items:center;gap:6px}
+.sync-note .sdot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse 2s infinite;flex-shrink:0}
 
 /* ── EXPERIENCE ── */
 #experience{background:var(--bg2)}
@@ -335,6 +342,7 @@ footer span{color:var(--green)}
       </div>
       <div class="pt-wrap"><table class="pt"><thead><tr><th>Project</th><th>Stack</th><th>Highlight</th></tr></thead><tbody id="pb"></tbody></table></div>
     </div>
+    <div class="sync-note fu"><span class="sdot"></span><span id="sync-status">auto-synced with github.com/Arnav1771 — new public repos appear here automatically</span></div>
   </div>
 </section>
 
@@ -413,7 +421,7 @@ const PROJECTS=[
   {icon:'🔌',name:'codeflow-extension',cat:'DevTools',stack:['TypeScript','VS Code API','GPT-4'],hl:'AI code gen, test gen, doc gen, security scan & commit messages in one plugin',url:'https://github.com/Arnav1771/codeflow-extension'},
   {icon:'📋',name:'CmdPop',cat:'DevTools',stack:['Python','TUI','SQLite','pipx'],hl:'Windows+V for your terminal — floating fuzzy-search over command history, all shells, zero plugins',url:'https://github.com/Arnav1771/Popup_pop'},
   {icon:'🐧',name:'Arch_Rice',cat:'Linux',stack:['Shell','Hyprland','Neovim','Dotfiles'],hl:'Complete Arch Linux rice — WM, bar, terminal, Neovim. Fully automated bootstrap.',url:'https://github.com/Arnav1771/Arch_Rice'},
-  {icon:'🔍',name:'stacktrace-ai',cat:'AI / LLM',stack:['Python','FastAPI','LLM','React'],hl:'Drop in any stack trace → AI gives root cause + fix. Live on Vercel.',url:'https://github.com/Arnav1771/stacktrace-ai'},
+  {icon:'🔍',name:'stacktrace-ai',cat:'AI / LLM',stack:['Python','FastAPI','LLM','React'],hl:'Drop in any stack trace → AI gives root cause + fix. Live on Vercel.',url:'https://github.com/Arnav1771/stacktrace-ai',live:'https://stacktrace-oxlxz7ckl-arnavs-projects-361d5c08.vercel.app'},
   {icon:'🌏',name:'TranslateExt — AI PDF Translator',cat:'AI / LLM',stack:['JavaScript','Chrome API','Gemini 2.0'],hl:'Right-click translate anywhere in Chrome incl. PDFs — 25+ languages, in-page panel',url:'https://github.com/Arnav1771/AI_PDF_Translator'},
   {icon:'🤝',name:'CultureBridge',cat:'AI / LLM',stack:['React','Flask','Gemini','Tailwind'],hl:'AI cultural translator — 5 nuanced rewrites per message with cultural warnings & scores',url:'https://github.com/Arnav1771/culturebridge-app'},
   {icon:'🎬',name:'motion-locked-subtitles',cat:'Computer Vision',stack:['Python','OpenCV','Whisper','YOLO'],hl:'Transcribes audio & pins subtitles to moving objects in real-time video',url:'https://github.com/Arnav1771/motion-locked-subtitle-generator'},
@@ -551,41 +559,97 @@ document.querySelectorAll('.nav-links a').forEach(a=>a.addEventListener('click',
   });
 })();
 
-/* ══ PROJECTS RENDER ════════════════════════════════════════════════ */
+/* ══ PROJECTS RENDER + GITHUB AUTO-SYNC ═════════════════════════════ */
+/*
+  Auto-sync rules (no code changes ever needed):
+  - Publish an ORIGINAL (non-fork) repo WITH a description → it auto-appears
+    at the top of the table with a NEW badge (repos pushed within 120 days).
+  - Set the repo's "Website" field on GitHub (or put a URL in the
+    description) → a pulsing "live ↗" button appears automatically.
+  - Repos with no description, forks, and coursework/filler names are ignored.
+*/
 (()=>{
-  const cats=['All',...new Set(PROJECTS.map(p=>p.cat))];
   const fb=document.getElementById('fb'),pb=document.getElementById('pb');
-  let active='All';
-  cats.forEach(cat=>{
-    const b=document.createElement('button');b.className='fbtn'+(cat==='All'?' active':'');b.textContent=cat;
-    b.onclick=()=>{active=cat;fb.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');render();};
-    fb.appendChild(b);
-  });
+  let ALL=[...PROJECTS],active='All';
+
+  function buildFilters(){
+    fb.innerHTML='';
+    const cats=['All',...new Set(ALL.map(p=>p.cat))];
+    cats.forEach(cat=>{
+      const b=document.createElement('button');b.className='fbtn'+(cat===active?' active':'');b.textContent=cat;
+      b.onclick=()=>{active=cat;fb.querySelectorAll('.fbtn').forEach(x=>x.classList.remove('active'));b.classList.add('active');render();};
+      fb.appendChild(b);
+    });
+  }
   function render(){
-    const list=active==='All'?PROJECTS:PROJECTS.filter(p=>p.cat===active);
+    const list=active==='All'?ALL:ALL.filter(p=>p.cat===active);
     pb.innerHTML=list.map(p=>`<tr>
-      <td><div class="pname"><span class="picon">${p.icon}</span><div><a class="ptitle" href="${p.url}" target="_blank" rel="noopener">${p.name}</a><span class="pcat">${p.cat}</span></div></div></td>
+      <td><div class="pname"><span class="picon">${p.icon}</span><div><a class="ptitle" href="${p.url}" target="_blank" rel="noopener">${p.name}${p.isNew?'<span class="pnew">NEW</span>':''}</a><span class="pcat">${p.cat}</span>${p.live?`<a class="plive" href="${p.live}" target="_blank" rel="noopener">live ↗</a>`:''}</div></div></td>
       <td class="pstack">${p.stack.map(t=>`<span class="ttag">${t}</span>`).join('')}</td>
       <td class="phi">${p.hl}</td>
     </tr>`).join('');
   }
-  render();
-})();
+  buildFilters();render();
 
-/* ══ LIVE GITHUB STATS ══════════════════════════════════════════════ */
-(async()=>{
-  try{
-    const [user,repos]=await Promise.all([
-      fetch('https://api.github.com/users/Arnav1771').then(r=>r.json()),
-      fetch('https://api.github.com/users/Arnav1771/repos?per_page=100').then(r=>r.json()),
-    ]);
-    if(user.public_repos){document.getElementById('s-repos').textContent=user.public_repos+'+';}
-    if(user.followers!==undefined){document.getElementById('s-followers').textContent=user.followers;}
-    if(Array.isArray(repos)){
-      const stars=repos.reduce((s,r)=>s+(r.stargazers_count||0),0);
-      document.getElementById('s-stars').textContent='★ '+stars;
-    }
-  }catch(e){}
+  /* ── GitHub sync ── */
+  const DENY=/cs50|internship|virtual|assignment|task|practice|potd|challenge|calculator|fizz|hangman|black-?jack|rock-paper|treasure|tip-|higher_lower|password_gen|matrix-multiply|dsa|_files|win10|stealth|^arnav1771$|arnav_bhargava|boot_portfolio|redesign|youtube_video|sql_connector|code-that|project_app|gsoc|zeotap|axe-|zidio|cantilever|qlik|walmart|accenture|cognizant|tata|british|electronic_arts|mern|speech_to|team_daddies|tornado|blackcoffer|dogs-vs-cats|capstone|catalyst|renpy|wildworld|tetris|platformer|tiles_broker|file_exec|boltdev|ai-waifu|rentmybrowser|ani-stream|higher|game$|c_files/i;
+  const LANG_CAT={Python:'AI / LLM',TypeScript:'DevTools',JavaScript:'Web / SaaS',Rust:'Systems',Shell:'Linux',Go:'Systems','Jupyter Notebook':'ML / RL'};
+  const urlRe=/https?:\/\/[^\s|]+/;
+
+  function liveOf(r){
+    if(r.homepage&&/^https?:\/\//.test(r.homepage))return r.homepage;
+    const m=(r.description||'').match(urlRe);
+    return m?m[0]:null;
+  }
+
+  (async()=>{
+    try{
+      const [user,repos]=await Promise.all([
+        fetch('https://api.github.com/users/Arnav1771').then(r=>r.json()),
+        fetch('https://api.github.com/users/Arnav1771/repos?per_page=100&sort=pushed').then(r=>r.json()),
+      ]);
+      /* stats */
+      if(user.public_repos)document.getElementById('s-repos').textContent=user.public_repos+'+';
+      if(user.followers!==undefined)document.getElementById('s-followers').textContent=user.followers;
+      if(!Array.isArray(repos))return;
+      document.getElementById('s-stars').textContent='★ '+repos.reduce((s,r)=>s+(r.stargazers_count||0),0);
+
+      const byName={};repos.forEach(r=>byName[r.name.toLowerCase()]=r);
+
+      /* 1. attach live links to curated projects from GitHub homepage/description */
+      ALL.forEach(p=>{
+        if(p.live)return;
+        const slug=p.url.split('/').pop().toLowerCase();
+        const r=byName[slug];
+        if(r){const l=liveOf(r);if(l)p.live=l;}
+      });
+
+      /* 2. auto-add fresh original repos not already curated */
+      const curated=new Set(ALL.map(p=>p.url.split('/').pop().toLowerCase()));
+      const cutoff=Date.now()-120*24*3600*1000;
+      const fresh=repos.filter(r=>
+        !r.fork&&r.description&&r.description.trim().length>15&&
+        !curated.has(r.name.toLowerCase())&&
+        !DENY.test(r.name)&&
+        new Date(r.pushed_at).getTime()>cutoff
+      ).slice(0,6).map(r=>({
+        icon:'✨',
+        name:r.name,
+        cat:LANG_CAT[r.language]||'New',
+        stack:[r.language,...(r.topics||[]).slice(0,3)].filter(Boolean),
+        hl:r.description.replace(urlRe,'').replace(/\|?\s*🚀\s*Live:?\s*/i,'').trim(),
+        url:r.html_url,
+        live:liveOf(r),
+        isNew:true,
+      }));
+
+      if(fresh.length){
+        ALL=[...fresh,...ALL];
+        document.getElementById('sync-status').textContent=`auto-synced with github.com/Arnav1771 — ${fresh.length} new repo${fresh.length>1?'s':''} detected & added automatically`;
+      }
+      buildFilters();render();
+    }catch(e){/* offline or rate-limited: curated list still shows */}
+  })();
 })();
 
 /* ══ INTERACTIVE TERMINAL ═══════════════════════════════════════════ */
