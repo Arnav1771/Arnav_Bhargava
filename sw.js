@@ -1,5 +1,5 @@
 /* Minimal PWA service worker — network-first for the page, cache fallback for offline */
-const CACHE = 'arnav-portfolio-v1';
+const CACHE = 'arnav-portfolio-v2';
 const ASSETS = ['.', 'index.html', 'manifest.webmanifest', 'icon.svg'];
 
 self.addEventListener('install', e => {
