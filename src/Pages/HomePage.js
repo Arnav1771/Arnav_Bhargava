@@ -1,13 +1,17 @@
 import React, { useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import styled from 'styled-components';
 import GithubIcon from '@mui/icons-material/GitHub';
 import YoutubeIcon from '@mui/icons-material/YouTube';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import Particle from '../Components/Particle';
 import './styles.css';
 
-function HomePage(props) {
-    const { theme } = props;
+/* ── Game-title-screen hero ──
+   The home page is a game main menu: key-art ronin, logo-style title,
+   class-rotation subtitle, menu items, HUD, and a PRESS ENTER prompt. */
+
+function HomePage() {
+    const navigate = useNavigate();
 
     const displayText = (text) => {
         let el = document.querySelector('#typewriter-effect');
@@ -16,11 +20,10 @@ function HomePage(props) {
 
     useEffect(() => {
         const messages = [
-            'Associate Consultant @ Aligned Automation',
-            'AI / LLM Engineer',
-            'Agentic Workflow Builder',
-            'Linux Poweruser 🐧',
-            'Arnav Bhargava',
+            'CLASS: AI / LLM ENGINEER',
+            'GUILD: ALIGNED AUTOMATION',
+            'SPEC: AGENTIC WORKFLOWS',
+            'PASSIVE: LINUX POWERUSER',
         ];
         let textIndex = 0;
         let lettersToShow = 0;
@@ -33,91 +36,94 @@ function HomePage(props) {
                 textIndex = (textIndex + 1) % messages.length;
                 lettersToShow = 0;
             }
-        }, 80);
+        }, 70);
         return () => clearInterval(id);
     }, []);
 
+    /* PRESS ENTER starts the game (projects) */
+    useEffect(() => {
+        const onKey = (e) => { if (e.key === 'Enter') navigate('/portfolios'); };
+        window.addEventListener('keydown', onKey);
+        return () => window.removeEventListener('keydown', onKey);
+    }, [navigate]);
+
     return (
         <HomePageStyled>
-            {/* ── cinematic cyberpunk-ronin backdrop ── */}
-            <div className="cyber-stage" aria-hidden="true">
+            {/* ── stage ── */}
+            <div className="stage" aria-hidden="true">
                 <div className="neon-sun" />
                 <div className="grid-floor" />
-                <div className="particle-con"><Particle theme={theme} /></div>
-
-                {/* cyber-ronin silhouette */}
-                <svg className="ronin" viewBox="0 0 260 340" role="img" aria-label="A neon cyber-ronin silhouette.">
+                <div className="stars" />
+                {/* key-art ronin */}
+                <svg className="ronin" viewBox="0 0 260 340" role="img" aria-label="Neon cyber-ronin key art.">
                     <defs>
                         <linearGradient id="neon" x1="0" y1="0" x2="1" y2="1">
-                            <stop offset="0" stopColor="#22d3ee" />
-                            <stop offset="1" stopColor="#ff2d95" />
+                            <stop offset="0" stopColor="#22d3ee" /><stop offset="1" stopColor="#ff2d95" />
                         </linearGradient>
                         <linearGradient id="blade" x1="0" y1="1" x2="0" y2="0">
-                            <stop offset="0" stopColor="#22d3ee" stopOpacity="0" />
-                            <stop offset="1" stopColor="#eafcff" />
+                            <stop offset="0" stopColor="#22d3ee" stopOpacity="0" /><stop offset="1" stopColor="#eafcff" />
                         </linearGradient>
                         <filter id="rglow" x="-60%" y="-60%" width="220%" height="220%">
                             <feGaussianBlur stdDeviation="3.2" result="b" />
                             <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
                         </filter>
                     </defs>
-
-                    {/* katana, drawn across the back */}
                     <g className="katana" filter="url(#rglow)">
                         <line x1="196" y1="300" x2="92" y2="34" stroke="url(#blade)" strokeWidth="3.4" strokeLinecap="round" />
                         <line x1="200" y1="306" x2="188" y2="290" stroke="#c79a3a" strokeWidth="5" strokeLinecap="round" />
                     </g>
-
-                    {/* body / robe silhouette */}
-                    <path className="ronin-body" d="M130 150 C104 150 96 168 90 196 L74 322 C96 312 116 316 130 316 C144 316 164 312 186 322 L170 196 C164 168 156 150 130 150 Z" fill="#080b14" stroke="url(#neon)" strokeWidth="2.2" />
-                    {/* shoulder armour plates */}
-                    <path className="ronin-plate" d="M92 176 C74 168 60 176 58 192 C74 186 86 190 96 200 Z" fill="#0b1020" stroke="url(#neon)" strokeWidth="1.6" />
-                    <path className="ronin-plate" d="M168 176 C186 168 200 176 202 192 C186 186 174 190 164 200 Z" fill="#0b1020" stroke="url(#neon)" strokeWidth="1.6" />
-                    {/* chest sash */}
-                    <path className="ronin-sash" d="M104 168 L150 300" stroke="url(#neon)" strokeWidth="2" opacity=".5" fill="none" />
-
-                    {/* head: mask + kabuto helmet */}
-                    <path className="ronin-helm" d="M130 60 C106 60 94 82 96 112 L100 132 C104 150 116 158 130 158 C144 158 156 150 160 132 L164 112 C166 82 154 60 130 60 Z" fill="#080b14" stroke="url(#neon)" strokeWidth="2.2" />
-                    <path className="ronin-brim" d="M86 96 C106 84 154 84 174 96 C154 92 106 92 86 96 Z" fill="url(#neon)" opacity=".85" />
-                    {/* crescent maedate (iconic ornament) */}
-                    <path className="ronin-crest" d="M130 40 C118 44 112 56 116 70 C112 58 120 48 132 48 C126 46 122 44 130 40 Z" fill="#c79a3a" filter="url(#rglow)" />
-                    {/* glowing visor */}
-                    <rect className="ronin-visor" x="108" y="112" width="44" height="7" rx="3.5" fill="#22d3ee" filter="url(#rglow)" />
+                    <path d="M130 150 C104 150 96 168 90 196 L74 322 C96 312 116 316 130 316 C144 316 164 312 186 322 L170 196 C164 168 156 150 130 150 Z" fill="#080b14" stroke="url(#neon)" strokeWidth="2.2" />
+                    <path d="M92 176 C74 168 60 176 58 192 C74 186 86 190 96 200 Z" fill="#0b1020" stroke="url(#neon)" strokeWidth="1.6" />
+                    <path d="M168 176 C186 168 200 176 202 192 C186 186 174 190 164 200 Z" fill="#0b1020" stroke="url(#neon)" strokeWidth="1.6" />
+                    <path d="M104 168 L150 300" stroke="url(#neon)" strokeWidth="2" opacity=".5" fill="none" />
+                    <path d="M130 60 C106 60 94 82 96 112 L100 132 C104 150 116 158 130 158 C144 158 156 150 160 132 L164 112 C166 82 154 60 130 60 Z" fill="#080b14" stroke="url(#neon)" strokeWidth="2.2" />
+                    <path d="M86 96 C106 84 154 84 174 96 C154 92 106 92 86 96 Z" fill="url(#neon)" opacity=".85" />
+                    <path d="M130 40 C118 44 112 56 116 70 C112 58 120 48 132 48 C126 46 122 44 130 40 Z" fill="#c79a3a" filter="url(#rglow)" />
+                    <rect className="visor" x="108" y="112" width="44" height="7" rx="3.5" fill="#22d3ee" filter="url(#rglow)" />
                 </svg>
-
                 <div className="scanlines" />
                 <div className="vignette" />
             </div>
 
-            {/* ── hero copy ── */}
-            <div className="typography">
-                <div className="greeting">
-                    <span className="prefix">// initialising_operator</span>
-                </div>
-                <h1 className="glitch">
-                    <span className="myname" id="typewriter-effect"></span>
-                    <span className="cursor">▌</span>
+            {/* ── HUD ── */}
+            <div className="hud hud-top" aria-hidden="true">
+                <span className="hud-chip">PLAYER 1</span>
+                <span className="hud-chip lv">LV. 24 — CONSULTANT</span>
+                <div className="xp"><span className="xp-fill" /><span className="xp-label">XP → NEXT ROLE</span></div>
+            </div>
+
+            {/* ── title block ── */}
+            <div className="title-block">
+                <p className="kicker">— A PORTFOLIO PRODUCTION —</p>
+                <h1 className="game-logo">
+                    <span className="line-1">ARNAV</span>
+                    <span className="line-2">BHARGAVA</span>
                 </h1>
-                <p className="bio">
-                    I design and deploy production-grade AI systems —{' '}
-                    <span>LLM pipelines</span>, <span>multi-agent workflows</span>, and end-to-end automation.
-                    Currently building at <span>Aligned Automation</span> as Associate Consultant.
-                </p>
-                <div className="status-bar">
-                    <span className="dot-green" />
-                    <span className="status-text">Open to Consulting &amp; Research Collaborations</span>
-                </div>
+                <p className="class-line"><span id="typewriter-effect" /><span className="cursor">▌</span></p>
+
+                <nav className="menu" aria-label="Start menu">
+                    <Link className="menu-item" to="/portfolios"><i>▶</i> NEW GAME <em>— view projects</em></Link>
+                    <Link className="menu-item" to="/resume"><i>▶</i> CONTINUE <em>— resume / experience</em></Link>
+                    <Link className="menu-item" to="/certification"><i>▶</i> TROPHIES <em>— certifications</em></Link>
+                    <Link className="menu-item" to="/contact"><i>▶</i> MULTIPLAYER <em>— contact me</em></Link>
+                </nav>
+
+                <p className="press-start">PRESS <b>ENTER</b> TO START</p>
+
                 <div className="icons">
-                    <a href="https://github.com/Arnav1771" className="icon i-github" target="_blank" rel="noopener noreferrer"><GithubIcon /></a>
-                    <a href="https://www.linkedin.com/in/arnav-bhargava-845457280/" className="icon i-linkedin" target="_blank" rel="noopener noreferrer"><LinkedInIcon /></a>
-                    <a href="https://www.youtube.com/@arnavplays4468" className="icon i-youtube" target="_blank" rel="noopener noreferrer"><YoutubeIcon /></a>
-                    <a href="https://www.kaggle.com/arnavbhargava03" className="icon i-kaggle" target="_blank" rel="noopener noreferrer" title="Kaggle">
-                        <svg viewBox="0 0 24 24" width="22" height="22" fill="#20BEFF" style={{ margin: '8px' }} aria-label="Kaggle"><path d="M.1025 7.3475c-.0681 0-.1022.0341-.1022.102v6.752c0 .0681.034.1022.1022.1022h.7049c.068 0 .1022-.034.1022-.1023v-1.481l.4187-.3985 1.5016 1.91c.041.0477.0884.0716.143.0716h.9091c.0476 0 .0748-.0135.0817-.0407.0135-.041.0066-.075-.0206-.1023l-1.9816-2.4618 1.9002-1.8384c.0204-.0205.0237-.051.01-.092-.0137-.0339-.0408-.051-.0816-.051h-.9398c-.0477 0-.0953.024-.143.0716L.9096 11.607V7.4496c0-.0679-.0342-.102-.1022-.102zm18.0417 0c-.068 0-.102.0341-.102.102v6.752c0 .0681.034.102.102.102h.705c.068 0 .102-.034.102-.102v-6.752c0-.068-.034-.102-.102-.102zM5.961 9.6254c-.5653 0-1.11.1806-1.6343.5415-.0545.0545-.0648.102-.0307.143l.3676.5208c.0272.0477.0717.0545.133.0204.3948-.2722.783-.4086 1.1644-.4086.2927 0 .5158.0886.669.2656.1532.1771.2197.3917.1992.6436-.6606.0681-1.1545.1495-1.4813.245-.8308.2383-1.2461.6913-1.2461 1.3586 0 .4222.1533.7695.4598 1.0419.3132.2654.6845.3982 1.1134.3982.4698 0 .8545-.1125 1.1542-.3372v.1432c0 .0682.0374.102.1123.102h.7048c.068 0 .102-.0338.102-.102V11.372c0-.6604-.2245-1.1406-.6739-1.4403-.3065-.2043-.6776-.3063-1.1134-.3063zm4.3225 0c-.6742 0-1.195.2622-1.5627.7865-.3133.4359-.4699.9671-.4699 1.5936 0 .6604.1634 1.2087.4903 1.6444.3744.4972.892.7455 1.5526.7455.5313 0 .9567-.1327 1.2768-.3982v.531c0 .858-.4122 1.287-1.236 1.287-.361 0-.732-.1907-1.1132-.572a.098.098 0 00-.0716-.0306c-.034 0-.0613.0102-.0817.0307l-.4802.48c-.0408.0613-.0375.1124.0103.1532.1361.1157.2554.2129.3576.2911.354.1975.7284.2961 1.1235.2961.6808 0 1.207-.1925 1.5781-.577.3711-.3848.5567-.9484.5567-1.6903V9.8196c0-.068-.034-.102-.102-.102h-.705c-.0682 0-.1021.034-.1021.102v.2043c-.3471-.2657-.7763-.3985-1.287-.3985zm4.8021 0c-.6742 0-1.195.2622-1.5627.7865-.3132.4359-.4699.9671-.4699 1.5936 0 .6604.1633 1.2087.4903 1.6444.3744.4972.892.7455 1.5526.7455.5311 0 .9566-.1327 1.2768-.3982v.531c0 .858-.4122 1.287-1.236 1.287-.361 0-.732-.1907-1.1133-.572a.098.098 0 00-.0716-.0306c-.034 0-.0612.0102-.0816.0307l-.48.48c-.0409.0613-.0376.1124.01.1532.1363.1157.2555.2129.3576.2911.354.1975.7285.2961 1.1237.2961.6808 0 1.2068-.1925 1.5781-.577.371-.3848.5565-.9484.5565-1.6903V9.8196c0-.068-.034-.102-.102-.102h-.7049c-.0682 0-.1022.034-.1022.102v.2043c-.3474-.2657-.7763-.3985-1.287-.3985zm6.7457 0c-.6537 0-1.185.211-1.5936.6332-.4427.4632-.664 1.0283-.664 1.6956 0 .7083.225 1.2905.6743 1.7467.463.463 1.042.6945 1.7366.6945.6467 0 1.2154-.1838 1.7057-.5515.0545-.041.0545-.0884 0-.143l-.4802-.4903c-.041-.0409-.0919-.0409-.1533 0-.2998.2112-.6368.3167-1.0112.3167-.4222 0-.7729-.119-1.052-.3576-.2452-.2248-.3882-.5038-.429-.8375h3.3197c.0679 0 .1022-.0341.1022-.1023l.01-.2244c.0341-.6878-.1668-1.26-.6025-1.7162-.4224-.4426-.9432-.664-1.5627-.664zm-.0206.7865c.3268 0 .6062.1056.8377.3166.2452.211.371.4734.378.7865h-2.4618c.0613-.3269.2077-.5925.4392-.7968.2313-.2042.5004-.3063.8069-.3063zm-11.4249.102c.6196 0 1.0146.2181 1.1848.6538v1.6854c-.1702.4358-.5755.6538-1.2155.6538-.3133 0-.5687-.0986-.7661-.2963-.2656-.2518-.3983-.6538-.3983-1.2053 0-.9941.3984-1.4914 1.1951-1.4914zm4.802 0c.6196 0 1.0148.2181 1.1851.6538h-.0002v1.6854c-.1703.4358-.5755.6538-1.2155.6538-.3132 0-.5686-.0986-.7661-.2963-.2655-.2518-.3983-.6538-.3983-1.2053 0-.9941.3983-1.4914 1.195-1.4914zm-8.3586 1.6547v1.0215c-.286.286-.6675.412-1.1441.3779-.1703-.0135-.32-.0663-.4493-.1582-.1294-.0919-.2045-.2129-.2249-.3627-.0341-.2657.1158-.47.4495-.6129.2452-.1088.7013-.1974 1.3688-.2656z" /></svg>
-                    </a>
-                    <a href="https://leetcode.com/u/Arnav1771/" className="icon i-leetcode" target="_blank" rel="noopener noreferrer" title="LeetCode">
-                        <svg viewBox="0 0 24 24" width="22" height="22" fill="#FFA116" style={{ margin: '8px' }} aria-label="LeetCode"><path d="M13.483 0a1.374 1.374 0 0 0-.961.438L7.116 6.226l-3.854 4.126a5.266 5.266 0 0 0-1.209 2.104 5.35 5.35 0 0 0-.125.513 5.527 5.527 0 0 0 .062 2.362 5.83 5.83 0 0 0 .349 1.017 5.938 5.938 0 0 0 1.271 1.818l4.277 4.193.039.038c2.248 2.165 5.852 2.133 8.063-.074l2.396-2.392c.54-.54.54-1.414.003-1.955a1.378 1.378 0 0 0-1.951-.003l-2.396 2.392a3.021 3.021 0 0 1-4.205.038l-.02-.019-4.276-4.193c-.652-.64-.972-1.469-.948-2.263a2.68 2.68 0 0 1 .066-.523 2.545 2.545 0 0 1 .619-1.164L9.13 8.114c1.058-1.134 3.204-1.27 4.43-.278l3.501 2.831c.593.48 1.461.387 1.94-.207a1.384 1.384 0 0 0-.207-1.943l-3.5-2.831c-.8-.647-1.766-1.045-2.774-1.202l2.015-2.158A1.384 1.384 0 0 0 13.483 0zm-2.866 12.815a1.38 1.38 0 0 0-1.38 1.382 1.38 1.38 0 0 0 1.38 1.382H20.79a1.38 1.38 0 0 0 1.38-1.382 1.38 1.38 0 0 0-1.38-1.382z" /></svg>
-                    </a>
+                    <a href="https://github.com/Arnav1771" className="icon" target="_blank" rel="noopener noreferrer" title="GitHub"><GithubIcon /></a>
+                    <a href="https://www.linkedin.com/in/arnav-bhargava-845457280/" className="icon" target="_blank" rel="noopener noreferrer" title="LinkedIn"><LinkedInIcon /></a>
+                    <a href="https://www.youtube.com/@arnavplays4468" className="icon" target="_blank" rel="noopener noreferrer" title="YouTube"><YoutubeIcon /></a>
+                    <a href="https://www.kaggle.com/arnavbhargava03" className="icon txt" target="_blank" rel="noopener noreferrer" title="Kaggle">K</a>
+                    <a href="https://leetcode.com/u/Arnav1771/" className="icon txt" target="_blank" rel="noopener noreferrer" title="LeetCode">LC</a>
                 </div>
+            </div>
+
+            {/* ── footer ticker ── */}
+            <div className="hud hud-bottom" aria-hidden="true">
+                <span>© 2026 ARNAV BHARGAVA</span>
+                <span className="coin">🪙 INSERT COIN — OR JUST SCROLL</span>
+                <span>BUILD v2026.07</span>
             </div>
         </HomePageStyled>
     );
@@ -130,120 +136,147 @@ const HomePageStyled = styled.header`
     overflow: hidden;
     display: flex;
     align-items: center;
-    background: radial-gradient(120% 90% at 80% 10%, #0c1122 0%, #05070d 60%, #03040a 100%);
+    justify-content: flex-start;
+    background: radial-gradient(120% 90% at 78% 8%, #0c1122 0%, #05070d 58%, #03040a 100%);
+    font-family: 'Source Code Pro', monospace;
 
-    /* ── backdrop ── */
-    .cyber-stage { position: absolute; inset: 0; z-index: 0; }
-    .particle-con { position: absolute; inset: 0; opacity: .5; }
-
+    .stage { position: absolute; inset: 0; z-index: 0; }
     .neon-sun {
-        position: absolute; top: 8%; right: 12%;
-        width: 34vw; height: 34vw; max-width: 460px; max-height: 460px;
-        border-radius: 50%;
+        position: absolute; top: 6%; right: 8%;
+        width: 36vw; height: 36vw; max-width: 500px; max-height: 500px; border-radius: 50%;
         background: radial-gradient(circle at 50% 55%, #ff2d95 0%, #b31666 40%, transparent 72%);
-        filter: blur(2px);
-        box-shadow: 0 0 120px 20px rgba(255,45,149,.35);
+        filter: blur(2px); box-shadow: 0 0 130px 24px rgba(255,45,149,.35);
         animation: sun-breathe 7s ease-in-out infinite;
     }
     .grid-floor {
-        position: absolute; left: -20%; right: -20%; bottom: 0; height: 42%;
+        position: absolute; left: -20%; right: -20%; bottom: 0; height: 44%;
         background-image: linear-gradient(rgba(34,211,238,.35) 1px, transparent 1px),
                           linear-gradient(90deg, rgba(34,211,238,.35) 1px, transparent 1px);
         background-size: 46px 46px;
-        transform: perspective(340px) rotateX(66deg);
-        transform-origin: bottom center;
+        transform: perspective(340px) rotateX(66deg); transform-origin: bottom center;
         mask-image: linear-gradient(transparent, #000 70%);
         -webkit-mask-image: linear-gradient(transparent, #000 70%);
         opacity: .55;
+        animation: grid-scroll 3.2s linear infinite;
     }
-    .scanlines {
-        position: absolute; inset: 0; pointer-events: none; opacity: .35;
-        background: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.28) 2px 3px);
+    .stars {
+        position: absolute; inset: 0;
+        background-image: radial-gradient(1.5px 1.5px at 12% 22%, rgba(234,252,255,.8) 50%, transparent 51%),
+            radial-gradient(1px 1px at 32% 12%, rgba(234,252,255,.6) 50%, transparent 51%),
+            radial-gradient(1.5px 1.5px at 56% 30%, rgba(234,252,255,.7) 50%, transparent 51%),
+            radial-gradient(1px 1px at 74% 18%, rgba(234,252,255,.6) 50%, transparent 51%),
+            radial-gradient(1.5px 1.5px at 88% 38%, rgba(234,252,255,.5) 50%, transparent 51%),
+            radial-gradient(1px 1px at 44% 46%, rgba(234,252,255,.45) 50%, transparent 51%);
+        animation: twinkle 5s ease-in-out infinite;
     }
-    .vignette {
-        position: absolute; inset: 0; pointer-events: none;
-        background: radial-gradient(120% 100% at 50% 40%, transparent 55%, rgba(0,0,0,.6) 100%);
-    }
-
     .ronin {
-        position: absolute; right: 15%; top: 50%; transform: translateY(-50%);
-        width: 30vw; max-width: 380px; height: auto;
-        filter: drop-shadow(0 0 26px rgba(34,211,238,.45));
+        position: absolute; right: 13%; top: 52%; transform: translateY(-50%);
+        width: 32vw; max-width: 400px; height: auto;
+        filter: drop-shadow(0 0 28px rgba(34,211,238,.45));
         animation: ronin-float 6s ease-in-out infinite;
     }
-    .ronin-visor { animation: visor-flicker 4s steps(1) infinite; }
+    .visor { animation: visor-flicker 4s steps(1) infinite; }
     .katana { animation: blade-pulse 3.4s ease-in-out infinite; }
+    .scanlines { position: absolute; inset: 0; pointer-events: none; opacity: .35;
+        background: repeating-linear-gradient(180deg, rgba(0,0,0,0) 0 2px, rgba(0,0,0,.28) 2px 3px); }
+    .vignette { position: absolute; inset: 0; pointer-events: none;
+        background: radial-gradient(120% 100% at 50% 40%, transparent 55%, rgba(0,0,0,.65) 100%); }
 
-    /* ── copy ── */
-    .typography {
+    /* HUD */
+    .hud { position: absolute; left: 0; right: 0; z-index: 3; display: flex; align-items: center;
+        gap: 1rem; padding: .8rem clamp(1rem, 3vw, 2.4rem); color: #7f9ab5; font-size: .72rem; letter-spacing: .14em; }
+    .hud-top { top: 0; }
+    .hud-bottom { bottom: 0; justify-content: space-between; border-top: 1px solid rgba(34,211,238,.15); }
+    .hud-chip { border: 1px solid rgba(34,211,238,.35); color: #22d3ee; padding: .2rem .6rem; border-radius: 4px; font-size: .68rem; }
+    .hud-chip.lv { color: #ffd166; border-color: rgba(255,209,102,.35); }
+    .xp { position: relative; flex: 0 1 240px; height: 8px; border: 1px solid rgba(34,211,238,.35); border-radius: 4px; overflow: hidden; }
+    .xp-fill { position: absolute; inset: 0; width: 72%; background: linear-gradient(90deg, #22d3ee, #ff2d95); animation: xp-charge 4s ease-in-out infinite; }
+    .xp-label { position: absolute; left: 8px; top: -1.05rem; font-size: .58rem; color: #55708c; }
+    .coin { animation: blink-soft 2.4s steps(1) infinite; }
+
+    /* title block */
+    .title-block {
         position: relative; z-index: 2;
-        width: min(680px, 90%);
-        margin-left: clamp(1rem, 5vw, 5rem);
-        text-align: left;
-
-        .greeting { margin-bottom: .8rem; }
-        .prefix {
-            font-family: 'Source Code Pro', monospace;
-            font-size: .85rem; letter-spacing: .18em; text-transform: uppercase;
-            color: #22d3ee; text-shadow: 0 0 10px rgba(34,211,238,.6);
+        margin-left: clamp(1.2rem, 6vw, 6rem);
+        max-width: 620px; padding: 4.5rem 0;
+    }
+    .kicker { color: #7f9ab5; font-size: .72rem; letter-spacing: .5em; margin-bottom: 1rem; }
+    .game-logo {
+        display: flex; flex-direction: column; line-height: .92; margin: 0 0 1.1rem;
+        font-family: 'Nunito', sans-serif; font-weight: 900; text-transform: uppercase;
+        span { display: block; }
+        .line-1 {
+            font-size: clamp(3rem, 7.2vw, 5.6rem); color: #eafcff; letter-spacing: .04em;
+            text-shadow: 0 0 24px rgba(34,211,238,.5), 4px 0 0 rgba(255,45,149,.45), -4px 0 0 rgba(34,211,238,.45);
         }
-
-        h1 {
-            font-size: clamp(1.9rem, 3.2vw, 3rem);
-            line-height: 1.1; margin-bottom: 1.1rem; min-height: 6.4rem;
-            color: #eafcff; font-weight: 800;
-            text-shadow: 0 0 18px rgba(34,211,238,.45), 3px 0 0 rgba(255,45,149,.5), -3px 0 0 rgba(34,211,238,.4);
-            animation: neon-flicker 5.5s ease-in-out infinite;
-            .myname { font-size: inherit; color: #eafcff; }
-            .cursor { font-size: inherit; display: inline-block; color: #ff2d95; animation: blink 1s step-start infinite; font-weight: 100; }
+        .line-2 {
+            font-size: clamp(2.2rem, 5.4vw, 4.2rem); letter-spacing: .14em;
+            color: transparent; -webkit-text-stroke: 2px #ff2d95;
+            text-shadow: 0 0 30px rgba(255,45,149,.35);
         }
+        animation: neon-flicker 6s ease-in-out infinite;
+    }
+    .class-line {
+        min-height: 1.4rem; margin: 0 0 1.8rem; font-size: .95rem; letter-spacing: .22em; color: #ffd166;
+        .cursor { color: #ff2d95; animation: blink 1s step-start infinite; }
+        #typewriter-effect { font-size: inherit; color: inherit; }
+    }
 
-        .bio {
-            max-width: 560px; margin: 0 0 1.2rem; color: #b9c2dd; font-size: 1rem; line-height: 1.6;
-            span { color: #22d3ee; text-shadow: 0 0 8px rgba(34,211,238,.4); }
+    /* game menu */
+    .menu { display: flex; flex-direction: column; gap: .35rem; margin-bottom: 1.6rem; }
+    .menu-item {
+        display: flex; align-items: baseline; gap: .7rem;
+        font-size: 1.02rem; letter-spacing: .18em; color: #cfe9ff; text-decoration: none;
+        padding: .45rem .8rem; border-left: 3px solid transparent;
+        transition: all .18s ease;
+        i { font-style: normal; color: transparent; transition: color .18s ease; font-size: .8rem; }
+        em { font-style: normal; color: #55708c; font-size: .72rem; letter-spacing: .1em; }
+        &:hover, &:focus-visible {
+            color: #22d3ee; border-left-color: #ff2d95; background: rgba(34,211,238,.06);
+            padding-left: 1.2rem; outline: none;
+            i { color: #ff2d95; }
+            em { color: #7f9ab5; }
         }
-
-        .status-bar {
-            display: inline-flex; align-items: center; gap: .5rem;
-            background: rgba(34,211,238,.08); border: 1px solid rgba(34,211,238,.3);
-            border-radius: 20px; padding: 5px 14px; margin-bottom: 1.5rem;
-            .dot-green { width: 8px; height: 8px; background: #22d3ee; border-radius: 50%; animation: pulse 2s infinite; }
-            .status-text { font-size: .78rem; color: #22d3ee; letter-spacing: .02em; }
-        }
-
-        .icons {
-            display: flex; flex-wrap: wrap; gap: .5rem;
-            .icon {
-                border: 2px solid rgba(34,211,238,.4); color: #cfe9ff;
-                display: flex; align-items: center; justify-content: center; border-radius: 50%;
-                overflow: hidden; transition: all .3s ease-in-out; cursor: pointer;
-                &:not(:last-child) { margin-right: .8rem; }
-                svg { margin: .5rem; }
-                &:hover { border-color: #ff2d95; color: #ff2d95; box-shadow: 0 0 16px rgba(255,45,149,.45); transform: translateY(-3px); }
-            }
-            .i-youtube:hover  { border-color: red; color: red; box-shadow: 0 0 14px rgba(255,0,0,.4); }
-            .i-github:hover   { border-color: #22d3ee; color: #22d3ee; box-shadow: 0 0 14px rgba(34,211,238,.45); }
-            .i-linkedin:hover { border-color: #0a66c2; color: #0a66c2; box-shadow: 0 0 14px rgba(10,102,194,.45); }
+    }
+    .press-start {
+        margin: 0 0 1.6rem; font-size: .85rem; letter-spacing: .34em; color: #eafcff;
+        animation: blink-soft 1.6s steps(1) infinite;
+        b { color: #ffd166; }
+    }
+    .icons {
+        display: flex; gap: .7rem;
+        .icon {
+            width: 2.5rem; height: 2.5rem; display: flex; align-items: center; justify-content: center;
+            border: 2px solid rgba(34,211,238,.35); border-radius: 8px; color: #cfe9ff;
+            text-decoration: none; font-weight: 800; font-size: .8rem; letter-spacing: .05em;
+            transition: all .25s ease;
+            svg { font-size: 1.3rem; }
+            &:hover { border-color: #ff2d95; color: #ff2d95; box-shadow: 0 0 16px rgba(255,45,149,.4); transform: translateY(-3px); }
         }
     }
 
     @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
-    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(34,211,238,.4); } 50% { box-shadow: 0 0 0 6px rgba(34,211,238,0); } }
-    @keyframes sun-breathe { 0%,100% { transform: scale(1); opacity: .95; } 50% { transform: scale(1.05); opacity: 1; } }
+    @keyframes blink-soft { 0%,100% { opacity: 1; } 55% { opacity: .25; } }
+    @keyframes sun-breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+    @keyframes grid-scroll { from { background-position: 0 0, 0 0; } to { background-position: 0 46px, 0 0; } }
+    @keyframes twinkle { 0%,100% { opacity: .9; } 50% { opacity: .5; } }
     @keyframes ronin-float { 0%,100% { transform: translateY(-50%); } 50% { transform: translateY(calc(-50% - 10px)); } }
     @keyframes blade-pulse { 0%,100% { opacity: .8; } 50% { opacity: 1; } }
     @keyframes visor-flicker { 0%,88%,100% { opacity: 1; } 90% { opacity: .3; } 94% { opacity: 1; } 96% { opacity: .4; } }
-    @keyframes neon-flicker { 0%,92%,100% { opacity: 1; } 93% { opacity: .82; } 95% { opacity: 1; } 97% { opacity: .88; } }
+    @keyframes neon-flicker { 0%,92%,100% { opacity: 1; } 93% { opacity: .85; } 95% { opacity: 1; } 97% { opacity: .9; } }
+    @keyframes xp-charge { 0%,100% { width: 70%; } 50% { width: 74%; } }
 
     @media screen and (max-width: 900px) {
-        .ronin { opacity: .28; right: 50%; transform: translate(50%, -50%); }
+        .ronin { opacity: .25; right: 50%; transform: translate(50%, -50%); }
         @keyframes ronin-float { 0%,100% { transform: translate(50%, -50%); } 50% { transform: translate(50%, calc(-50% - 10px)); } }
-        .neon-sun { right: 50%; transform: translateX(50%); opacity: .6; }
-        .typography { text-align: center; margin: 0 auto; width: 92%;
-            .icons { justify-content: center; } .status-bar { margin-inline: auto; } }
+        .neon-sun { right: 50%; transform: translateX(50%); opacity: .55; }
+        .title-block { margin-inline: auto; text-align: center; padding-inline: 1rem;
+            .menu { align-items: center; } .icons { justify-content: center; } }
+        .hud-top .xp { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
-        .neon-sun, .ronin, .ronin-visor, .katana, h1, .dot-green { animation: none !important; }
+        .neon-sun, .grid-floor, .stars, .ronin, .visor, .katana, .game-logo,
+        .press-start, .coin, .xp-fill, .cursor { animation: none !important; }
     }
 `;
 
